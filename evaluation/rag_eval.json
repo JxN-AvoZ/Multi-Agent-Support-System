@@ -1,0 +1,334 @@
+{
+  "dataset_name": "Getnet RAG & Multi-Agent Evaluation",
+  "version": "2.0",
+  "language": ["pt-BR", "en"],
+  "answerability_definitions": {
+    "should_be_answerable": "True if the system can answer the query using any available capability (internal RAG documentation, customer support tools, or external web search).",
+    "should_be_answerable_from_rag": "True only if the query can be answered using Getnet's internal knowledge base/documentation without relying exclusively on live external web search or account-specific APIs."
+  },
+  "cases": [
+    {
+      "id": "wifi_001",
+      "message": "Como conectar minha maquininha Getnet ao Wi-Fi?",
+      "user_id": "cliente1988",
+      "expected_topic": "terminal_connectivity",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [
+        "get-ajuda-configuracoes"
+      ],
+      "source_hints": [
+        "Official Getnet Wi-Fi or network configuration instructions"
+      ],
+      "expected_keywords": [
+        "wi-fi",
+        "maquininha",
+        "rede"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "pix_001",
+      "message": "Como habilitar o recebimento de pagamentos via Pix?",
+      "user_id": "cliente1988",
+      "expected_topic": "pix_activation",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [
+        "get-ajuda-pix"
+      ],
+      "source_hints": [
+        "Official Getnet Pix activation guide"
+      ],
+      "expected_keywords": [
+        "pix",
+        "habilitar",
+        "portal"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "payment_link_001",
+      "message": "Posso enviar links de pagamento pelo WhatsApp?",
+      "user_id": "cliente1988",
+      "expected_topic": "payment_links",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [
+        "link-de-pagamento"
+      ],
+      "source_hints": [
+        "Official Getnet Payment Link documentation"
+      ],
+      "expected_keywords": [
+        "link",
+        "whatsapp",
+        "pagamento"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "crediario_001",
+      "message": "Como funciona o crediário Getnet?",
+      "user_id": "cliente1988",
+      "expected_topic": "crediario",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [
+        "crediario"
+      ],
+      "source_hints": [
+        "Official Getnet Crediário product documentation"
+      ],
+      "expected_keywords": [
+        "parcelamento",
+        "crediario"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "unknown_001",
+      "message": "What is the current weather in Porto Alegre?",
+      "user_id": "cliente1988",
+      "expected_topic": "weather",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "web_search",
+      "expected_tools": ["Tavily search"],
+      "expected_sources": [],
+      "source_hints": [
+        "Current weather conditions for Porto Alegre from an external weather source"
+      ],
+      "expected_keywords": [
+        "Porto Alegre",
+        "weather",
+        "temperature"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": false
+    },
+    {
+      "id": "product_comparison_001",
+      "message": "What's the difference between the Get Clássica and the Get Smart?",
+      "user_id": "cliente1988",
+      "expected_topic": "product_comparison",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "source_hints": [
+        "Official Getnet product documentation for Get Clássica",
+        "Official Getnet product documentation for Get Smart"
+      ],
+      "expected_keywords": [
+        "Get Clássica",
+        "Get Smart",
+        "maquininha",
+        "features"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "weather_forecast_001",
+      "message": "What's the weather forecast in Porto Alegre tomorrow?",
+      "user_id": "cliente1988",
+      "expected_topic": "weather_forecast",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "web_search",
+      "expected_tools": ["Tavily search"],
+      "expected_sources": [],
+      "source_hints": [
+        "Current weather forecast for Porto Alegre from an external weather source"
+      ],
+      "expected_keywords": [
+        "Porto Alegre",
+        "forecast",
+        "tomorrow",
+        "temperature",
+        "rain"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": false
+    },
+    {
+      "id": "settlement_schedule_001",
+      "message": "When will the money from yesterday's sales be deposited?",
+      "user_id": "cliente1988",
+      "expected_topic": "settlement_schedule",
+      "expected_agents": ["support"],
+      "expected_knowledge_mode": "none",
+      "expected_tools": ["get_settlement_schedule"],
+      "expected_sources": [],
+      "source_hints": [],
+      "expected_keywords": [
+        "sale date",
+        "expected deposit date",
+        "settlement",
+        "status"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": false
+    },
+    {
+      "id": "pix_bank_account_001",
+      "message": "Do I need a bank account to receive my sales via Pix?",
+      "user_id": "cliente1988",
+      "expected_topic": "pix_receiving_requirements",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "source_hints": [
+        "Official Getnet Pix documentation describing receiving-sales requirements and account configuration"
+      ],
+      "expected_keywords": [
+        "Pix",
+        "bank account",
+        "receive sales",
+        "account configuration"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "terminal_connectivity_001",
+      "message": "My card machine won't connect to the internet, what should I do?",
+      "user_id": "cliente1988",
+      "expected_topic": "terminal_connectivity",
+      "expected_agents": ["support", "knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": ["get_terminal_status"],
+      "expected_sources": [],
+      "source_hints": [
+        "Official Getnet terminal troubleshooting documentation",
+        "Official Getnet Wi-Fi or network configuration instructions"
+      ],
+      "expected_keywords": [
+        "terminal",
+        "internet",
+        "Wi-Fi",
+        "connectivity",
+        "network"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "receivables_advance_001",
+      "message": "How does receivables advance (antecipação) work with Getnet?",
+      "user_id": "cliente1988",
+      "expected_topic": "receivables_advance",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "source_hints": [
+        "Official Getnet documentation about antecipação de recebíveis, eligibility, conditions, and fees"
+      ],
+      "expected_keywords": [
+        "antecipação",
+        "receivables",
+        "advance",
+        "eligibility",
+        "conditions"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "exchange_rate_001",
+      "message": "What's the euro exchange rate today?",
+      "user_id": "cliente1988",
+      "expected_topic": "euro_exchange_rate",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "web_search",
+      "expected_tools": ["Tavily search"],
+      "expected_sources": [],
+      "source_hints": [
+        "Current EUR-to-BRL exchange-rate source from an external provider"
+      ],
+      "expected_keywords": [
+        "EUR",
+        "BRL",
+        "euro",
+        "exchange rate",
+        "today"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": false
+    },
+    {
+      "id": "transaction_decline_001",
+      "message": "My card machine is showing a transaction decline error.",
+      "user_id": "cliente1988",
+      "expected_topic": "transaction_decline",
+      "expected_agents": ["support", "knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": ["get_recent_transactions"],
+      "expected_sources": [],
+      "source_hints": [
+        "Customer's declined transaction records",
+        "Official Getnet documentation explaining declined transactions or relevant terminal error troubleshooting"
+      ],
+      "expected_keywords": [
+        "declined",
+        "transaction",
+        "decline reason",
+        "error"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "crediario_installments_001",
+      "message": "How many installments can I split a sale into with the crediário?",
+      "user_id": "cliente1988",
+      "expected_topic": "crediario_installments",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "source_hints": [
+        "Official Getnet Crediário product documentation describing installment conditions and limits"
+      ],
+      "expected_keywords": [
+        "crediário",
+        "installments",
+        "parcelas",
+        "installment limit"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "payment_link_whatsapp_001",
+      "message": "Can I sell through WhatsApp using the Payment Link?",
+      "user_id": "cliente1988",
+      "expected_topic": "payment_link_whatsapp",
+      "expected_agents": ["knowledge"],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "source_hints": [
+        "Official Getnet Payment Link documentation describing sharing links through WhatsApp or messaging apps"
+      ],
+      "expected_keywords": [
+        "Payment Link",
+        "link de pagamento",
+        "WhatsApp",
+        "share",
+        "sell"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    }
+  ]
+}
