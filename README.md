@@ -9,6 +9,7 @@ The project is designed to demonstrate how customer requests can be routed to sp
 - [Project objectives](#project-objectives)
 - [Architecture](#architecture)
 - [Main components](#main-components)
+- [Video Overview](#video-overview)
 - [RAG knowledge base](#rag-knowledge-base)
 - [Project structure](#project-structure)
 - [Requirements](#requirements)
