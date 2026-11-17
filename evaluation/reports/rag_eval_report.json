@@ -1,8 +1,8 @@
 {
   "dataset_name": "Getnet RAG & Multi-Agent Evaluation",
   "dataset_version": "2.0",
-  "evaluated_at_utc": "2026-11-16T17:37:11.247583+00:00",
-  "dataset_path": "/home/avoz/Documents/GitHub-projects/Multiagent Support System/getnet_agents/evaluation/rag_eval.json",
+  "evaluated_at_utc": "2026-11-17T00:55:18.620500+00:00",
+  "dataset_path": "/home/avoz/Documents/GitHub-projects/Multiagent Support System/evaluation/rag_eval.json",
   "index_chunks": 242,
   "top_k": 5,
   "total_dataset_cases": 15,

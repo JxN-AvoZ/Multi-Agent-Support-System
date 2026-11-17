@@ -77,6 +77,11 @@ The Router Agent determines which specialists should run and in which order. Whe
 
 ## Main components
 
+### Video Overview
+
+
+    YouTube: https://youtu.be/I_iofOyIrio
+
 ### 1. Router Agent
 
 The router classifies the customer's request and produces a structured execution plan. It identifies whether the request requires:
@@ -141,6 +146,7 @@ Multiagent Support System/
 ├── Dockerfile                      # Container image definition
 ├── docker-compose.yml              # API service and persistent data volume
 ├── index.json                      # Locally persisted RAG chunks
+├── pytest.ini                      # Required to run the tests from root directory
 ├── tests/
 │   ├── test_main.py                # Automated tests
 │   └── rag_eval.py                 # Offline RAG evaluation runner
@@ -164,7 +170,7 @@ Runtime files such as the SQLite ticket database may be created when the applica
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/JxN-AvoZ/Multi-Agent-Support-System.git
 cd <repository-directory>
 ```
 
@@ -342,4 +348,5 @@ This project is a technical prototype, not a production-ready payment-support sy
 
 ## License
 
-No license has been specified for this project yet.
+ GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
