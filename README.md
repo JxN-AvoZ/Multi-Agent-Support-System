@@ -80,8 +80,9 @@ The Router Agent determines which specialists should run and in which order. Whe
 ### Video Overview
 
 
-    YouTube: https://youtu.be/I_iofOyIrio
+  Visit <https://youtu.be/I_iofOyIrio> for video description.
 
+    
 ### 1. Router Agent
 
 The router classifies the customer's request and produces a structured execution plan. It identifies whether the request requires:

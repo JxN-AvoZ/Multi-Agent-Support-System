@@ -29,4 +29,7 @@ Thumbs.db
 # Logs
 *.log
 EOF
+
+# SQLite databases
 *.sqlite3*
+*.db*
