@@ -1,0 +1,220 @@
+{
+  "evaluated_at_utc": "2026-11-21T04:16:17.927991+00:00",
+  "models": {
+    "fast": "gemini-3.8-flash",
+    "smart": "gemini-3.8-flash",
+    "judge": null
+  },
+  "split": "all",
+  "skipped_without_tavily_key": [],
+  "summary": {
+    "all": {
+      "cases": 3,
+      "routing_accuracy": 1.0,
+      "final_agents_accuracy": 0.0,
+      "tool_recall": null,
+      "tool_precision": null,
+      "mean_fact_coverage": null,
+      "verified_rate": null,
+      "escalation_rate": 0.0,
+      "latency_ms_p50": 61337,
+      "latency_ms_p95": 66647,
+      "total_input_tokens": 0,
+      "total_output_tokens": 0,
+      "judge": null,
+      "judged_cases": 0
+    },
+    "dev": {
+      "cases": 3,
+      "routing_accuracy": 1.0,
+      "final_agents_accuracy": 0.0,
+      "tool_recall": null,
+      "tool_precision": null,
+      "mean_fact_coverage": null,
+      "verified_rate": null,
+      "escalation_rate": 0.0,
+      "latency_ms_p50": 61337,
+      "latency_ms_p95": 66647,
+      "total_input_tokens": 0,
+      "total_output_tokens": 0,
+      "judge": null,
+      "judged_cases": 0
+    }
+  },
+  "scenarios": [
+    {
+      "id": "follow_up_uses_history",
+      "description": "The second question only makes sense with the first turn in context.",
+      "turns": [
+        {
+          "turn": 1,
+          "agents": [
+            "router"
+          ],
+          "fact_coverage": 0.0,
+          "missing_facts": [
+            "189[.,]90",
+            "320[.,]00"
+          ],
+          "escalated": false,
+          "answer": "I'm unable to process your request right now. Please try again shortly."
+        },
+        {
+          "turn": 2,
+          "agents": [
+            "router"
+          ],
+          "fact_coverage": 0.0,
+          "missing_facts": [
+            "320[.,]00",
+            "insufficient"
+          ],
+          "escalated": false,
+          "answer": "I'm unable to process your request right now. Please try again shortly."
+        }
+      ],
+      "fact_coverage": 0.0,
+      "passed": false
+    },
+    {
+      "id": "terminal_then_wifi_follow_up",
+      "description": "Device problem first, then a vague follow-up that depends on the earlier answer.",
+      "turns": [
+        {
+          "turn": 1,
+          "agents": [
+            "router"
+          ],
+          "fact_coverage": 0.0,
+          "missing_facts": [
+            "offline|no[_ ]connectivity|not connected"
+          ],
+          "escalated": false,
+          "answer": "I'm unable to process your request right now. Please try again shortly."
+        },
+        {
+          "turn": 2,
+          "agents": [
+            "router"
+          ],
+          "fact_coverage": 0.0,
+          "missing_facts": [
+            "wi-?fi"
+          ],
+          "escalated": false,
+          "answer": "I'm unable to process your request right now. Please try again shortly."
+        }
+      ],
+      "fact_coverage": 0.0,
+      "passed": false
+    },
+    {
+      "id": "human_reply_reaches_next_turn",
+      "description": "Escalate, let an operator answer, and check the agent uses that reply on the next turn.",
+      "turns": [
+        {
+          "turn": 1,
+          "agents": [
+            "router"
+          ],
+          "fact_coverage": 0.0,
+          "missing_facts": [
+            "TCK-"
+          ],
+          "escalated": false,
+          "answer": "I'm unable to process your request right now. Please try again shortly."
+        },
+        {
+          "turn": 2,
+          "ok": false,
+          "error": "no ticket to reply to"
+        },
+        {
+          "turn": 3,
+          "agents": [
+            "router"
+          ],
+          "fact_coverage": 0.0,
+          "missing_facts": [
+            "9 ?am|9h|nine"
+          ],
+          "escalated": false,
+          "answer": "I'm unable to process your request right now. Please try again shortly."
+        }
+      ],
+      "fact_coverage": 0.0,
+      "passed": false
+    }
+  ],
+  "cases": [
+    {
+      "id": "wifi_001",
+      "split": "dev",
+      "planned_agents": [
+        "knowledge"
+      ],
+      "executed_agents": [],
+      "routing_ok": true,
+      "final_agents_ok": false,
+      "tools_called": [],
+      "tool_recall": null,
+      "tool_precision": null,
+      "fact_coverage": null,
+      "missing_facts": [],
+      "verified": null,
+      "replans": [],
+      "escalated": false,
+      "confidence": 0.0,
+      "latency_ms": 51229,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "answer": "I'm unable to process your request right now. Please try again shortly."
+    },
+    {
+      "id": "pix_001",
+      "split": "dev",
+      "planned_agents": [
+        "knowledge"
+      ],
+      "executed_agents": [],
+      "routing_ok": true,
+      "final_agents_ok": false,
+      "tools_called": [],
+      "tool_recall": null,
+      "tool_precision": null,
+      "fact_coverage": null,
+      "missing_facts": [],
+      "verified": null,
+      "replans": [],
+      "escalated": false,
+      "confidence": 0.0,
+      "latency_ms": 66647,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "answer": "I'm unable to process your request right now. Please try again shortly."
+    },
+    {
+      "id": "payment_link_001",
+      "split": "dev",
+      "planned_agents": [
+        "knowledge"
+      ],
+      "executed_agents": [],
+      "routing_ok": true,
+      "final_agents_ok": false,
+      "tools_called": [],
+      "tool_recall": null,
+      "tool_precision": null,
+      "fact_coverage": null,
+      "missing_facts": [],
+      "verified": null,
+      "replans": [],
+      "escalated": false,
+      "confidence": 0.0,
+      "latency_ms": 61337,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "answer": "I'm unable to process your request right now. Please try again shortly."
+    }
+  ]
+}

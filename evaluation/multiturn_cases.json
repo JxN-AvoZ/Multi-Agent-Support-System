@@ -1,0 +1,33 @@
+{
+  "description": "Multi-turn and human-handoff scenarios for tests/agentic_eval.py. Each turn may require facts (regexes matched case-insensitively against the answer). A scenario passes when every required fact in every turn is present.",
+  "scenarios": [
+    {
+      "id": "follow_up_uses_history",
+      "description": "The second question only makes sense with the first turn in context.",
+      "user_id": "cliente1988",
+      "turns": [
+        {"message": "Show me my recent transactions.", "required_facts": ["189[.,]90", "320[.,]00"]},
+        {"message": "Which of those was declined, and why?", "required_facts": ["320[.,]00", "insufficient"]}
+      ]
+    },
+    {
+      "id": "terminal_then_wifi_follow_up",
+      "description": "Device problem first, then a vague follow-up that depends on the earlier answer.",
+      "user_id": "cliente1988",
+      "turns": [
+        {"message": "My card machine won't connect to the internet.", "required_facts": ["offline|no[_ ]connectivity|not connected"]},
+        {"message": "How do I connect it to Wi-Fi?", "required_facts": ["wi-?fi"]}
+      ]
+    },
+    {
+      "id": "human_reply_reaches_next_turn",
+      "description": "Escalate, let an operator answer, and check the agent uses that reply on the next turn.",
+      "user_id": "cliente1988",
+      "turns": [
+        {"message": "I want to speak to a person about my declined payment.", "required_facts": ["TCK-"]},
+        {"operator_reply": "We raised your limit for tomorrow; please retry the 320.00 sale after 9am."},
+        {"message": "Did the specialist reply to my case?", "required_facts": ["9 ?am|9h|nine"]}
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 .env
+.git
 *.zip
 __pycache__/
 .pytest_cache/
-index.json
 *.sqlite3*

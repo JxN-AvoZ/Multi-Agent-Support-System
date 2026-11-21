@@ -19,9 +19,11 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+for _path in (PROJECT_ROOT, Path(__file__).resolve().parent):
+    if str(_path) not in sys.path:
+        sys.path.insert(0, str(_path))
 
+import eval_metrics  # noqa: E402  (shared metric functions, same folder)
 import main  # noqa: E402  (project path is added above)
 
 
@@ -56,6 +58,18 @@ def parse_arguments() -> argparse.Namespace:
         action="store_true",
         help="Print a short preview of every retrieved chunk.",
     )
+    parser.add_argument(
+        "--min-mrr",
+        type=float,
+        default=None,
+        help="Exit with status 1 if MRR over labeled cases is below this value (CI gate).",
+    )
+    parser.add_argument(
+        "--min-hit-rate",
+        type=float,
+        default=None,
+        help="Exit with status 1 if Hit@K over labeled cases is below this value (CI gate).",
+    )
     return parser.parse_args()
 
 
@@ -64,6 +78,14 @@ def resolve_project_path(path: Path) -> Path:
     if path.is_absolute():
         return path
     return PROJECT_ROOT / path
+
+
+def _display_path(path: Path) -> str:
+    """Show paths relative to the project root so reports hold no local paths."""
+    try:
+        return path.relative_to(PROJECT_ROOT).as_posix()
+    except ValueError:
+        return path.name
 
 
 def load_dataset(path: Path) -> dict[str, Any]:
@@ -131,6 +153,10 @@ def source_hint_overlap(hint: str, retrieved_text: str) -> dict[str, Any]:
     }
 
 
+def _fmt(value: float | None) -> str:
+    return "n/a" if value is None else f"{value:.2f}"
+
+
 def evaluate_case(case: dict[str, Any], top_k: int, show_text: bool) -> dict[str, Any]:
     case_id = case["id"]
     message = str(case.get("message") or case.get("question") or "")
@@ -172,16 +198,36 @@ def evaluate_case(case: dict[str, Any], top_k: int, show_text: bool) -> dict[str
         }
         retrieved_documents.append(document)
 
+    # Page-level ranking metrics, only for cases that carry relevance labels.
+    relevant_sources = case.get("relevant_sources")
+    urls = [str(item.get("url", "")) for item in retrieved]
+    index_urls = {chunk["url"] for chunk in main.CHUNKS}
+    labeled = bool(relevant_sources)
+    ranking: dict[str, Any] = {"labeled": labeled}
+    if labeled:
+        ranking.update(
+            {
+                "precision_at_k": eval_metrics.precision_at_k(urls, relevant_sources),
+                "recall_at_k": eval_metrics.recall_at_k(
+                    urls, relevant_sources, index_urls, top_k
+                ),
+                "reciprocal_rank": eval_metrics.reciprocal_rank(urls, relevant_sources),
+                "hit_at_k": eval_metrics.hit_at_k(urls, relevant_sources),
+            }
+        )
+
     result: dict[str, Any] = {
         "id": case_id,
         "message": message,
         "retrieval_queries": queries,
         "expected_topic": case.get("expected_topic"),
+        "split": case.get("split", "dev"),
         "retrieved_count": len(retrieved),
         "retrieved_any": bool(retrieved),
         "keyword_matches": keyword_results,
         "keyword_coverage": round(keyword_coverage, 3) if keyword_coverage is not None else None,
         "source_hint_checks": source_checks,
+        "ranking": ranking,
         "retrieved_documents": retrieved_documents,
     }
 
@@ -195,6 +241,14 @@ def evaluate_case(case: dict[str, Any], top_k: int, show_text: bool) -> dict[str
         missing = [item["keyword"] for item in keyword_results if not item["matched"]]
         if missing:
             print(f"  missing keywords: {', '.join(missing)}")
+    if labeled:
+        print(
+            f"  P@{top_k}={_fmt(ranking['precision_at_k'])}  "
+            f"R@{top_k}={_fmt(ranking['recall_at_k'])}  "
+            f"RR={_fmt(ranking['reciprocal_rank'])}"
+        )
+    else:
+        print("  ranking metrics: n/a (no relevant page in the index for this case)")
     for rank, document in enumerate(retrieved_documents, start=1):
         print(f"  {rank}. {document['url']}")
         if show_text:
@@ -248,11 +302,31 @@ def main_cli() -> int:
         sum(keyword_values) / len(keyword_values) if keyword_values else None
     )
 
+    def summarize_ranking(items: list[dict[str, Any]]) -> dict[str, Any]:
+        labeled = [item["ranking"] for item in items if item["ranking"]["labeled"]]
+        return {
+            "labeled_cases": len(labeled),
+            "unlabeled_cases": len(items) - len(labeled),
+            "mean_precision_at_k": eval_metrics.mean(r["precision_at_k"] for r in labeled),
+            "mean_recall_at_k": eval_metrics.mean(r["recall_at_k"] for r in labeled),
+            "mrr": eval_metrics.mean(r["reciprocal_rank"] for r in labeled),
+            "hit_rate_at_k": eval_metrics.mean(float(r["hit_at_k"]) for r in labeled),
+        }
+
+    ranking_summary = {
+        "label_level": "page (URL substring), written by the project author",
+        "all": summarize_ranking(results),
+        "by_split": {
+            split: summarize_ranking([r for r in results if r["split"] == split])
+            for split in sorted({r["split"] for r in results})
+        },
+    }
+
     summary = {
         "dataset_name": dataset.get("dataset_name"),
         "dataset_version": dataset.get("version"),
         "evaluated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "dataset_path": str(dataset_path),
+        "dataset_path": _display_path(dataset_path),
         "index_chunks": chunk_count,
         "top_k": args.top_k,
         "total_dataset_cases": len(cases),
@@ -260,6 +334,7 @@ def main_cli() -> int:
         "non_rag_cases_skipped": len(skipped_cases),
         "non_empty_retrieval_rate": non_empty / total_cases if total_cases else 0.0,
         "average_keyword_coverage": average_keyword_coverage,
+        "ranking": ranking_summary,
         "results": results,
     }
 
@@ -277,13 +352,29 @@ def main_cli() -> int:
         print(f"Average keyword coverage: {average_keyword_coverage:.1%}")
     else:
         print("Average keyword coverage: n/a (no expected keywords)")
-    print(f"Report: {report_path}")
-    print("\nNote: non-empty retrieval and keyword coverage are diagnostic metrics,")
-    print("not formal Precision@K/Recall@K. Review source relevance manually or")
-    print("add explicit relevant document IDs to the dataset for formal metrics.")
-    print("For English questions against Portuguese pages, add a 'retrieval_queries'")
-    print("array to a case with Portuguese keyword variants to evaluate cross-language retrieval.")
+    for label, block in (("all", ranking_summary["all"]), *ranking_summary["by_split"].items()):
+        print(
+            f"Ranking [{label}] over {block['labeled_cases']} labeled cases "
+            f"({block['unlabeled_cases']} with no relevant page in the index): "
+            f"P@{args.top_k}={_fmt(block['mean_precision_at_k'])} "
+            f"R@{args.top_k}={_fmt(block['mean_recall_at_k'])} "
+            f"MRR={_fmt(block['mrr'])} Hit@{args.top_k}={_fmt(block['hit_rate_at_k'])}"
+        )
+    print(f"Report: {_display_path(report_path)}")
+    print("\nNotes: keyword coverage is a lexical diagnostic. Precision/Recall/MRR use")
+    print("page-level relevance labels (URL substrings) written by the project author,")
+    print("not an independent annotator, so they measure 'right page', not 'right sentence'.")
 
+
+    overall = ranking_summary["all"]
+    failures = []
+    if args.min_mrr is not None and (overall["mrr"] or 0.0) < args.min_mrr:
+        failures.append(f"MRR {_fmt(overall['mrr'])} < {args.min_mrr}")
+    if args.min_hit_rate is not None and (overall["hit_rate_at_k"] or 0.0) < args.min_hit_rate:
+        failures.append(f"Hit@{args.top_k} {_fmt(overall['hit_rate_at_k'])} < {args.min_hit_rate}")
+    if failures:
+        print("RETRIEVAL REGRESSION: " + "; ".join(failures), file=sys.stderr)
+        return 1
     return 0
 
 

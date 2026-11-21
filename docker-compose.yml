@@ -3,7 +3,11 @@ services:
     build: .
     ports:
       - "8000:8000"
-    env_file: .env
+    # Optional: copy .env.example to .env to add API keys. Without it the API
+    # still starts and runs offline.
+    env_file:
+      - path: .env
+        required: false
     volumes:
       - getnet_data:/data
 

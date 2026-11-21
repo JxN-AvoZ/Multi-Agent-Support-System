@@ -1,7 +1,10 @@
 {
   "dataset_name": "Getnet RAG & Multi-Agent Evaluation",
-  "version": "2.0",
-  "language": ["pt-BR", "en"],
+  "version": "2.2",
+  "language": [
+    "pt-BR",
+    "en"
+  ],
   "answerability_definitions": {
     "should_be_answerable": "True if the system can answer the query using any available capability (internal RAG documentation, customer support tools, or external web search).",
     "should_be_answerable_from_rag": "True only if the query can be answered using Getnet's internal knowledge base/documentation without relying exclusively on live external web search or account-specific APIs."
@@ -12,7 +15,9 @@
       "message": "Como conectar minha maquininha Getnet ao Wi-Fi?",
       "user_id": "cliente1988",
       "expected_topic": "terminal_connectivity",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [
@@ -27,14 +32,21 @@
         "rede"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "como-configurar-o-wi-fi",
+        "get-ajuda-configuracoes"
+      ],
+      "split": "dev"
     },
     {
       "id": "pix_001",
       "message": "Como habilitar o recebimento de pagamentos via Pix?",
       "user_id": "cliente1988",
       "expected_topic": "pix_activation",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [
@@ -49,14 +61,21 @@
         "portal"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "get-ajuda-pix",
+        "/pix/"
+      ],
+      "split": "dev"
     },
     {
       "id": "payment_link_001",
       "message": "Posso enviar links de pagamento pelo WhatsApp?",
       "user_id": "cliente1988",
       "expected_topic": "payment_links",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [
@@ -71,14 +90,20 @@
         "pagamento"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "link-de-pagamento"
+      ],
+      "split": "dev"
     },
     {
       "id": "crediario_001",
       "message": "Como funciona o crediário Getnet?",
       "user_id": "cliente1988",
       "expected_topic": "crediario",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [
@@ -92,16 +117,24 @@
         "crediario"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "/crediario/"
+      ],
+      "split": "dev"
     },
     {
       "id": "unknown_001",
       "message": "What is the current weather in Porto Alegre?",
       "user_id": "cliente1988",
       "expected_topic": "weather",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "web_search",
-      "expected_tools": ["Tavily search"],
+      "expected_tools": [
+        "Tavily search"
+      ],
       "expected_sources": [],
       "source_hints": [
         "Current weather conditions for Porto Alegre from an external weather source"
@@ -112,14 +145,17 @@
         "temperature"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": false
+      "should_be_answerable_from_rag": false,
+      "split": "dev"
     },
     {
       "id": "product_comparison_001",
       "message": "What's the difference between the Get Clássica and the Get Smart?",
       "user_id": "cliente1988",
       "expected_topic": "product_comparison",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [],
@@ -134,16 +170,24 @@
         "features"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "todas-as-maquininhas"
+      ],
+      "split": "dev"
     },
     {
       "id": "weather_forecast_001",
       "message": "What's the weather forecast in Porto Alegre tomorrow?",
       "user_id": "cliente1988",
       "expected_topic": "weather_forecast",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "web_search",
-      "expected_tools": ["Tavily search"],
+      "expected_tools": [
+        "Tavily search"
+      ],
       "expected_sources": [],
       "source_hints": [
         "Current weather forecast for Porto Alegre from an external weather source"
@@ -156,16 +200,21 @@
         "rain"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": false
+      "should_be_answerable_from_rag": false,
+      "split": "dev"
     },
     {
       "id": "settlement_schedule_001",
       "message": "When will the money from yesterday's sales be deposited?",
       "user_id": "cliente1988",
       "expected_topic": "settlement_schedule",
-      "expected_agents": ["support"],
+      "expected_agents": [
+        "support"
+      ],
       "expected_knowledge_mode": "none",
-      "expected_tools": ["get_settlement_schedule"],
+      "expected_tools": [
+        "get_settlement_schedule"
+      ],
       "expected_sources": [],
       "source_hints": [],
       "expected_keywords": [
@@ -175,14 +224,20 @@
         "status"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": false
+      "should_be_answerable_from_rag": false,
+      "required_facts": [
+        "189[.,]90"
+      ],
+      "split": "dev"
     },
     {
       "id": "pix_bank_account_001",
       "message": "Do I need a bank account to receive my sales via Pix?",
       "user_id": "cliente1988",
       "expected_topic": "pix_receiving_requirements",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [],
@@ -196,16 +251,26 @@
         "account configuration"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "get-ajuda-pix",
+        "/pix/"
+      ],
+      "split": "dev"
     },
     {
       "id": "terminal_connectivity_001",
       "message": "My card machine won't connect to the internet, what should I do?",
       "user_id": "cliente1988",
       "expected_topic": "terminal_connectivity",
-      "expected_agents": ["support", "knowledge"],
+      "expected_agents": [
+        "support",
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
-      "expected_tools": ["get_terminal_status"],
+      "expected_tools": [
+        "get_terminal_status"
+      ],
       "expected_sources": [],
       "source_hints": [
         "Official Getnet terminal troubleshooting documentation",
@@ -219,14 +284,23 @@
         "network"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "get-ajuda-configuracoes"
+      ],
+      "required_facts": [
+        "offline|no[_ ]connectivity|not connected"
+      ],
+      "split": "dev"
     },
     {
       "id": "receivables_advance_001",
       "message": "How does receivables advance (antecipação) work with Getnet?",
       "user_id": "cliente1988",
       "expected_topic": "receivables_advance",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [],
@@ -241,16 +315,25 @@
         "conditions"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "/duvidas/",
+        "/crediario/"
+      ],
+      "split": "dev"
     },
     {
       "id": "exchange_rate_001",
       "message": "What's the euro exchange rate today?",
       "user_id": "cliente1988",
       "expected_topic": "euro_exchange_rate",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "web_search",
-      "expected_tools": ["Tavily search"],
+      "expected_tools": [
+        "Tavily search"
+      ],
       "expected_sources": [],
       "source_hints": [
         "Current EUR-to-BRL exchange-rate source from an external provider"
@@ -263,16 +346,22 @@
         "today"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": false
+      "should_be_answerable_from_rag": false,
+      "split": "dev"
     },
     {
       "id": "transaction_decline_001",
       "message": "My card machine is showing a transaction decline error.",
       "user_id": "cliente1988",
       "expected_topic": "transaction_decline",
-      "expected_agents": ["support", "knowledge"],
+      "expected_agents": [
+        "support",
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
-      "expected_tools": ["get_recent_transactions"],
+      "expected_tools": [
+        "get_recent_transactions"
+      ],
       "expected_sources": [],
       "source_hints": [
         "Customer's declined transaction records",
@@ -285,14 +374,22 @@
         "error"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [],
+      "required_facts": [
+        "320[.,]00",
+        "insufficient"
+      ],
+      "split": "dev"
     },
     {
       "id": "crediario_installments_001",
       "message": "How many installments can I split a sale into with the crediário?",
       "user_id": "cliente1988",
       "expected_topic": "crediario_installments",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [],
@@ -306,14 +403,20 @@
         "installment limit"
       ],
       "should_be_answerable": true,
-      "should_be_answerable_from_rag": true
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "/crediario/"
+      ],
+      "split": "dev"
     },
     {
       "id": "payment_link_whatsapp_001",
       "message": "Can I sell through WhatsApp using the Payment Link?",
       "user_id": "cliente1988",
       "expected_topic": "payment_link_whatsapp",
-      "expected_agents": ["knowledge"],
+      "expected_agents": [
+        "knowledge"
+      ],
       "expected_knowledge_mode": "rag",
       "expected_tools": [],
       "expected_sources": [],
@@ -328,7 +431,154 @@
         "sell"
       ],
       "should_be_answerable": true,
+      "should_be_answerable_from_rag": true,
+      "relevant_sources": [
+        "link-de-pagamento"
+      ],
+      "split": "dev"
+    },
+    {
+      "id": "split_001",
+      "message": "O que é o Split de Pagamento da Getnet?",
+      "user_id": "cliente1988",
+      "split": "heldout",
+      "expected_topic": "split_payments",
+      "expected_agents": [
+        "knowledge"
+      ],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "expected_keywords": [
+        "split",
+        "pagamento",
+        "divisão"
+      ],
+      "relevant_sources": [
+        "/split/",
+        "/duvidas/"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "recurring_001",
+      "message": "How do I charge my customers on a recurring basis?",
+      "user_id": "cliente1988",
+      "split": "heldout",
+      "expected_topic": "recurring_payments",
+      "expected_agents": [
+        "knowledge"
+      ],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "expected_keywords": [
+        "recorrência",
+        "cobrança",
+        "recurring"
+      ],
+      "relevant_sources": [
+        "pagamentos-recorrentes"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "loan_001",
+      "message": "Como funciona a reserva diária do empréstimo?",
+      "user_id": "cliente1988",
+      "split": "heldout",
+      "expected_topic": "loan_daily_reserve",
+      "expected_agents": [
+        "knowledge"
+      ],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "expected_keywords": [
+        "reserva diária",
+        "empréstimo",
+        "parcela"
+      ],
+      "relevant_sources": [
+        "/emprestimo/"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "digital_account_001",
+      "message": "Does Getnet offer a digital account with a virtual card?",
+      "user_id": "cliente1988",
+      "split": "heldout",
+      "expected_topic": "digital_account",
+      "expected_agents": [
+        "knowledge"
+      ],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "expected_keywords": [
+        "conta digital",
+        "cartão virtual"
+      ],
+      "relevant_sources": [
+        "conta-digital"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "get_tap_001",
+      "message": "What is Get Tap?",
+      "user_id": "cliente1988",
+      "split": "heldout",
+      "expected_topic": "get_tap",
+      "expected_agents": [
+        "knowledge"
+      ],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "expected_keywords": [
+        "get tap",
+        "aproximação",
+        "celular"
+      ],
+      "relevant_sources": [
+        "get-tap"
+      ],
+      "should_be_answerable": true,
+      "should_be_answerable_from_rag": true
+    },
+    {
+      "id": "checkout_001",
+      "message": "Quero vender online, o que é o Get Checkout?",
+      "user_id": "cliente1988",
+      "split": "heldout",
+      "expected_topic": "get_checkout",
+      "expected_agents": [
+        "knowledge"
+      ],
+      "expected_knowledge_mode": "rag",
+      "expected_tools": [],
+      "expected_sources": [],
+      "expected_keywords": [
+        "checkout",
+        "e-commerce",
+        "pagamentos online"
+      ],
+      "relevant_sources": [
+        "getcheckout"
+      ],
+      "should_be_answerable": true,
       "should_be_answerable_from_rag": true
     }
-  ]
+  ],
+  "labeling_notes": {
+    "relevant_sources": "URL substrings of the indexed pages that contain the answer. Page-level labels written by reading the pages in index.json; they were not produced by an independent annotator. An empty list means the index has no page that answers the question (transaction_decline_001), so the case is excluded from Precision/Recall/MRR and reported separately.",
+    "required_facts": "Regular expressions (case-insensitive) that a correct answer must contain, derived from the deterministic mock customer data in main.users().",
+    "split": "'dev' cases were used while building and tuning retrieval (stopwords, plural stemming, query lexicon). 'heldout' cases were written afterwards, labelled before the first run, and not used for any tuning. Report heldout numbers as the honest estimate."
+  }
 }

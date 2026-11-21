@@ -1,0 +1,110 @@
+{
+  "wifi_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "pix_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "payment_link_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "crediario_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "product_comparison_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "settlement_schedule_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "pix_bank_account_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "terminal_connectivity_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "receivables_advance_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "transaction_decline_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "crediario_installments_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "payment_link_whatsapp_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "split_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "recurring_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "loan_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "digital_account_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "get_tap_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  },
+  "checkout_001": {
+    "answer": "I'm unable to process your request right now. Please try again shortly.",
+    "correctness": null,
+    "groundedness": null,
+    "helpfulness": null
+  }
+}
